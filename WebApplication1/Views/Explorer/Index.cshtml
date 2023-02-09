@@ -1,0 +1,66 @@
+﻿@using WebApplication1.Models;
+@{
+    ViewBag.Title = "Folder Explorer";
+}
+
+<div class="fileexplorer">
+    <div class="treeview">
+        <ul class="myUL">
+            @foreach (WebApplication1.Models.DirModel dir in Model.Dirs)
+            {
+                <li class="myLI">
+                    @if (dir.IsNotEmpty)
+                    {
+                        <span class="triangle" name="@dir.Id" href="@(Model.URL + dir.Name)"></span>
+                    }
+                    @if (!dir.IsNotEmpty)
+                    {
+                        <span style="margin-left: 18px;"></span>
+                    }
+                    <img src="~/img/folder.png" alt="Folder Logo" align="top" style="width: 20px; height: 20px; border: none" />
+                    <a class="link" href="@(Model.URL + dir.Name)">@dir.Name</a>
+                </li>
+                <div id="@dir.Id"></div>
+            }
+        </ul>
+    </div>
+    <div class="listview">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Last Modified</th>
+                    <th scope="col">Size</th>
+                </tr>
+            </thead>
+            <tbody id="table1">
+                @if (Model.URL.ToLower() != "/explorer/")
+                {
+                    <tr>
+                        <td class='clickable-row' colspan="3" data-href="@Model.ParentName"></td>
+                    </tr>
+                }
+                @foreach (WebApplication1.Models.DirModel dir in Model.Dirs)
+                {
+                    <tr class='clickable-row' data-href="@(Model.URL + dir.Name)/">
+                        <td class="myTD">
+                            <img src="~/img/folder.png" alt="Folder Logo" align="top" style="width: 20px; height: 20px; border: none" />    @dir.Name
+                        </td>
+                        <td class="myTD">@dir.Accessed</td>
+                        <td class="myTD-size" path="@dir.Path">Calcutation...</td>
+                    </tr>
+                }
+                @foreach (WebApplication1.Models.FileModel file in Model.Files)
+                {
+                    <tr>
+                        <td class="myTD">
+                            <img src="~/img/file.png" alt="Folder Logo" align="top" style="width: 20px;height: 20px; border: none" />   @file.Name</td>
+                        <td class="myTD">@file.Accessed</td>
+                        <td class="myTD" title="@file.Size">@file.Size KB</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <input type="hidden" id="size_order" value="asc">
+</div>
