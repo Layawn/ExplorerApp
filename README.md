@@ -6,7 +6,7 @@ The left side is a Tree View for hierarchically displaying the directory structu
 
 ![image](https://user-images.githubusercontent.com/100798944/217758126-f2b930f2-e132-4122-8f4e-115922013341.png)
 
-The right side displays the contents of the selected directory. Sorting is performed by the occupied size of files and folders on the disk.
+The right side displays the contents of the selected directory. Sorting is performed by the occupied size of files and folders on the disk. On first load, the application calculates the sizes of the displayed folders in the ListView and stores them in the cache. Storage time 5 minutes.
 
 ![image](https://user-images.githubusercontent.com/100798944/217756609-ffb87925-ce56-470c-bfe1-5c9583e97855.png)
 
